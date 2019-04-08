@@ -7,7 +7,7 @@
     4. Block explorer 설치
 
 
-1. utxo 관련
+1. UTXO 관련
     - 하나의 UTXO 최대 25개의 자식tx를 생성할 수 있다,
     - too-long-mempool-chain이 뜬 tx는 바로 Mempool에 적용 안되고 wallet.dat에 있다.
     - 어느정도 시간이 지난 후 다시 tx가 Mempool에 담기고 tx전파를 하지만 얼만큼의 시간인지는 모르겠다. (10분 ~ 30분 제각각 길게는 24시간까지)

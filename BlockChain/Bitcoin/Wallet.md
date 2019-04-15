@@ -49,4 +49,4 @@
 
 
 ## 참조
- [wallet ] (https://steemit.com/kr-dev/@modolee/mastering-ethereum-4-wallet)
+ [wallet 설명](https://steemit.com/kr-dev/@modolee/mastering-ethereum-4-wallet).

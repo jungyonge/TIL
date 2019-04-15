@@ -6,3 +6,4 @@
 
 ## 설명
 - 졸업작품으로 진행하였던 직원관리 web application에서 급여부분을 Ethereum Dapp으로 
+- 정리가 잘 안되었으므로 참고..

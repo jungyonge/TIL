@@ -46,3 +46,7 @@
   6. 단어 시퀀스로부터 순서를 유지하면서 니모닉 코드를 생성한다. 
 
 ![mnemonic](./mnemonic.png)
+
+
+## 참조
+ [wallet ] (https://steemit.com/kr-dev/@modolee/mastering-ethereum-4-wallet)

@@ -3,7 +3,7 @@ import java.util.*;
 public class test{
 
     public static void main(String args[]) {
-        String str = "zzdddfff";
+        String str = "123@ㅁㄴㅇㄹ123#!$#zzzddDdffff";
         String[] strArr =
                 { "13","but", "i", "wont", "hesitate", "no", "more", "no", "more", "it", "cannot", "wait", "im", "yours" };
 
@@ -14,41 +14,52 @@ public class test{
     }
 
     public static void problemOne(String str){
-            String strLower = str.toLowerCase();//소문자 변환, 대소문자 구분할 시 주석처리
-            String[] strArr = strLower.split("");//문자열 배열로 변환
-            String[] strArr2 = new String[str.length()];//문자열 중복제거 후 저장용
-            HashMap<String ,Integer> map = new HashMap<>();
 
-            //알파벳 횟수 카운트
-            for(int i = 0 ; i < strArr.length; i++){
-                if(!map.containsKey(strArr[i])){
-                    map.put(strArr[i],1);
-                }
-                else{
-                    int cnt = map.get(strArr[i]) + 1 ;
-                    map.put(strArr[i],cnt);
-                }
+        String[] strArr = new String[str.length()];
+        String[] strArr2 = new String[str.length()];
+        HashMap<String ,Integer> map = new HashMap<>();
+
+        //문자열에서 알파벳만 파싱
+        int a = 0;
+        for(int i = 0 ; i < str.length(); i++){
+            int ascii = (byte)str.charAt(i);
+            if((ascii >= 65 && ascii <= 90) || (ascii >= 97 && ascii <= 122) ){
+                String strLower = String.valueOf(str.charAt(i)).toLowerCase();// 대소문자 구분시 .toLowerCase 삭제
+                strArr[a] = strLower;
+                a++;
             }
-
-            //value 기준을 정렬
-            Iterator it = test.sortByValue(map).iterator();
-            int j = 0;
-            //중복제거, 정렬 후 strArr2에 저장
-            while(it.hasNext()){
-                 String temp = (String) it.next();
-                 strArr2[j] = temp;
-                 j++;
-            }
-
-            //최고횟수와 똑같은 횟수가 있는 지 확인 후 출력
-            System.out.println("1번 문제");
-            for(int i = 0; i < strArr2.length; i++){
-                if(map.get(strArr2[0]) == map.get(strArr2[i])){
-                    System.out.println("가장 많은 알파벳은 " + strArr2[i] + "이고 횟수는 " + map.get(strArr2[i])+ "번 입니다.");
-                }
-            }
-
         }
+
+        //알파벳 횟수 카운트
+        for(int i = 0 ; i < a; i++){
+            if(!map.containsKey(strArr[i])){
+                map.put(strArr[i],1);
+            }
+            else{
+                int cnt = map.get(strArr[i]) + 1 ;
+                map.put(strArr[i],cnt);
+            }
+        }
+
+        //value 기준을 정렬
+        Iterator it = test.sortByValue(map).iterator();
+        int j = 0;
+        //카운트, 정렬 후 알파벳 strArr2에 저장
+        while(it.hasNext()){
+            String temp = (String) it.next();
+            strArr2[j] = temp;
+            j++;
+        }
+
+        //최고횟수와 똑같은 횟수가 있는 지 확인 후 출력
+        System.out.println("1번 문제");
+        for(int i = 0; i < strArr2.length; i++){
+            if(map.get(strArr2[0]) == map.get(strArr2[i])){
+                System.out.println("가장 많은 알파벳은 " + strArr2[i] + "이고 횟수는 " + map.get(strArr2[i])+ "번 입니다.");
+            }
+        }
+
+    }
 
     public static void problemTwo(){
         int result = 0;
@@ -123,3 +134,4 @@ public class test{
         return list;
     }
 }
+

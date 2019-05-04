@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+ 
+  <title>아르바이트 근태관리 </title>
+
+    <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.2.3/milligram.min.css">
+  <style>
+
+    body {margin-left:50px;}
+    #storedData {font-size:300%; margin-right:10px;}
+    li {width: 400px; margin-right:10px; text-align:left;}
+          li1 {width: 600px; margin-right:10px; text-align:left;}
+      left {width: 600px; float:left;}
+      right{width: 800px; float:left;}
+  </style>
+</head>
+<body>
+<h3>아르바이트 관리 </h3>
+<ul>
+    <left>
+  <li1>컨트랙트 주소: <span id="contractAddr"></span></li1><br>
+  <li1>현재 어카운트 주소: <span id="accountAddr"></span></li1><br>
+  <li1>(현재블록: <span id="lastBlock"></span>)</li1>        
+
+
+<br>
+  <li>이더리움입금  <input id="moneyValue"placeholder="입금할 이더리움" type="text">  <button onclick="depositMoney()">보내기</button>  </li>
+<br>
+  <li>직원ID만들기
+      
+      <input id="workerPassword" placeholder="패스워드" type="text"> <br>
+
+      <input id="workerName" placeholder="이름"  type="text"> <br>
+
+    <input id="workerPayment"placeholder="시급"  type="text"> <br>
+
+
+<input id="workerAddress"placeholder="지갑주소"  type="text"> <br>
+
+<button onclick="createWorker()">만들기</button>  </li>
+
+    
+    <li>상태  <span id="result"></span></li><br>
+			
+ 
+
+  <li>직원근무시간   <input id="workerId"placeholder="아이디" type="text"> 
+    <input id="workerPassword" placeholder="패스워드"  type="text">
+    <button onclick="getHour()">불러오기</button> </li>
+        <li>  <span id ="workerHour"></span></li>
+</left>
+    <right>
+<br>
+        <br>
+  <li>급여지급 <input id="workerID" placeholder="아이디" type="text">  
+      <input id="workerAddress"placeholder="지갑주소" type="text">
+    <button onclick="withdrawPay()">지급</button> </li>
+<br>
+  <li>근무시작 <input id="workerID" placeholder="아이디" type="text">  <input id="workerPassword"placeholder="패스워드" type="text">
+    <button onclick="workStart()">시작</button> </li>
+<br>
+  <li>근무종료 <input id="workerID"placeholder="아이디"  type="text">  <input id="workerPassword"placeholder="패스워드" type="text">
+    <button onclick="workStop()">종료</button> </li>
+<br>
+</right>
+
+
+
+    </ul>
+    </body>
+
+<script>
+
+
+var contractAddress = '0x2145dde756081cc72fcf8e4b6f54fbd429f750c0';
+
+var parttimeContract;
+var parttime;
+var userAccount;
+var blockNumber
+    
+window.addEventListener('load', function() {
+
+  // Checking if Web3 has been injected by the browser (Mist/MetaMask)
+  if (typeof web3 !== 'undefined') {
+    // Use Mist/MetaMask's provider
+    window.web3 = new Web3(web3.currentProvider);
+  } else {
+    console.log('No web3? You should consider trying MetaMask!')
+    // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+    window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+  }
+  // Now you can start your app & access web3 freely:
+  startApp();
+});
+
+function startApp() {
+    parttimeContract = web3.eth.contract(abi);
+    parttime = parttimeContract.at(contractAddress);
+    document.getElementById('contractAddr').innerHTML = contractAddress ;
+   document.getElementById('accountAddr').innerHTML = web3.eth.accounts[0];
+    getBlock();
+    }
+    
+    function getBlock(){
+     
+
+  web3.eth.getBlockNumber(function(e,r){
+ document.getElementById('lastBlock').innerHTML = r;
+  });
+
+    }
+
+    
+    
+
+
+    function createWorker() {
+          var workerName = document.getElementById('workerName').value;
+          var workerPayment = document.getElementById('workerPayment').value;
+          var workerPassword = document.getElementById('workerPassword').value;
+         var workerAddress = document.getElementById('workerAddress').value;
+        var txid
+        
+     document.getElementById('result').innerHTML = '아이디를 만들고 있습니다.';
+          
+    parttime._createWorker(workerName,workerPayment,workerPassword,workerAddress,function(e,r){
+        if (r!=null){
+             document.getElementById('result').innerHTML =' 아이디가 만들어졌습니다';}
+            else{
+                 document.getElementById('result').innerHTML = r+ '아이디 생성에 실패했습니다';
+            
+        }
+    });
+    }
+    function depositMoney(){
+        var moneyValue = document.getElementById('moneyValue').value;
+       // parttime_depositMoney(web3.eth.accounts[0],web3.toWei(moneyValue, 'ether'),function(e,r){});
+          // parttime._depositMoney(function(e,r){});               
+                              
+      // web3.eth.sendTransaction({from:web3.eth.accounts[0],to:contractAddress, value: web3.toWei(moneyValue, 'ether')},function(e,r){});
+    
+       parttime._depositMoney({from:web3.eth.accounts[0],to:contractAddress, value: web3.toWei(moneyValue, 'ether') ,gas: 200000,gasPrice: 20000000000},function(e,r){});
+    
+    }
+    
+    function getHour(){
+        var workerId = document.getElementById('workerId').value;
+        var workerPassword = document.getElementById('workerPassword').value;
+        parttime._getHour(workerId,workerPassword,function(e,r)
+            { 
+            document.getElementById('workerHour').innerHTML=r.toNumber() + '시간 일했습니다';
+        });
+         
+
+        
+    }
+    function withdrawPay(){
+         var workerId = document.getElementById('workerId').value;
+        var workerAddress = document.getElementById('workerAddress').value;
+        parttime._withdrawPay(workerId,workerAddress,{gas: 500000,gasPrice: 50000000000},function(e,r){});
+        
+    }
+    
+    function workStart(){
+        var workerId = document.getElementById('workerId').value;
+        var workerPassword = document.getElementById('workerPassword').value;
+        parttime._startWork(workerId,workerPassword,{gas: 500000,gasPrice: 50000000000},function(e,r){});
+    }
+    
+        function workStop(){
+        var workerId = document.getElementById('workerId').value;
+        var workerPassword = document.getElementById('workerPassword').value;
+        parttime._endWork(workerId,workerPassword,{gas: 500000,gasPrice: 50000000000},function(e,r){});
+    }
+    
+    
+    var abi =[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_payment",
+				"type": "uint32"
+			}
+		],
+		"name": "_chgPayment",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_password",
+				"type": "uint256"
+			}
+		],
+		"name": "_getHour",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "workerOfname",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "_depositMoney",
+		"outputs": [
+			{
+				"name": "success",
+				"type": "bool"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_password",
+				"type": "uint256"
+			}
+		],
+		"name": "_startWork",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"name": "",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_hour",
+				"type": "uint256"
+			}
+		],
+		"name": "_addHour",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_password",
+				"type": "uint256"
+			}
+		],
+		"name": "_endWork",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_payment",
+				"type": "uint256"
+			},
+			{
+				"name": "_password",
+				"type": "uint256"
+			},
+			{
+				"name": "_addr",
+				"type": "address"
+			}
+		],
+		"name": "_createWorker",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_hour",
+				"type": "uint256"
+			}
+		],
+		"name": "_subHour",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_to",
+				"type": "address"
+			}
+		],
+		"name": "_withdrawPay",
+		"outputs": [],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "workers",
+		"outputs": [
+			{
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"name": "hour",
+				"type": "uint256"
+			},
+			{
+				"name": "payment",
+				"type": "uint256"
+			},
+			{
+				"name": "password",
+				"type": "uint256"
+			},
+			{
+				"name": "addr",
+				"type": "address"
+			},
+			{
+				"name": "starttime",
+				"type": "uint256"
+			},
+			{
+				"name": "endtime",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"name": "_from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "Transfer",
+		"type": "event"
+	}
+];
+    
+               
+               
+                                
+
+</script>
+</html>
+

@@ -1,0 +1,51 @@
+<html>
+<head>
+  <meta charset="utf-8">
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.2.3/milligram.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/eosjs@15.0.6/lib/eos.min.js"
+        integrity="sha512-IDRAIcOGQTZN3jE/TvTiG3czpjzmWPiYi0+mwWbJVdYwPfbhD2YtzlpD4+rKE+MIuysseAenToyLNoO1whNFUg=="
+        crossorigin="anonymous"></script>
+     <style>
+
+    body {margin-left:50px;}
+    #storedData {font-size:300%; margin-right:10px;}
+    li {width: 400px; margin-right:10px; text-align:left;}
+    li1 {width: 600px; margin-right:10px; text-align:left;}
+    left {width: 600px; float:left;}
+    right{width: 800px; float:left;}
+  </style>
+ 
+</head>
+<body>
+  See console object: Eos<br>
+    <button onclick = "issue()">issue</button>
+    <li>이더리움입금  <input id="account"placeholder="Account" type="text">  
+                    <input id="assetValue"placeholder="Betting" type="text">  
+        <button onclick="slotmachine()">Slot</button>  </li>
+
+</body>
+</html>
+ <script>
+
+config ={ 
+	chainId:'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f',
+  keyProvider: ['5JSfMUpJD1j42YZweXAzz928xKfZy532YrbrksnprtDRFPyuSXe'], // WIF string or array of keys..
+  
+}
+  eos = Eos(config)
+   function slotmachine(){
+         var account = document.getElementById('account').value;
+         var assetValue = document.getElementById('assetValue'+'.0000 CAS').value;
+         var permission = document.getElementById('account'+'@active').value;
+       
+
+eos.contract('slot').then(function(contract){
+return contract.issue('account', 'assetValue', '0',{authorization:['permission']})
+}).then(function(result){
+}).catch(e=>{
+console.error("catch : " + e)
+});
+}
+ 
+  
+  </script>

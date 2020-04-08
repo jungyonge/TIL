@@ -76,4 +76,70 @@ public static String getHttpURLConnection(String url) throws Exception {
 ~~~
     
 2. HttpClient
+- Apache에서 제공
+- HttpClient는 3버전과 4버전이 있으며 4버전부터는 HttpComponents로 불리고 있음.(단, 3버전과 4버전은 둘간 직접적인 호환은 되지 않음)
+- HttpComponents(4버전) 부터는 Thread에 안정적인 기능들을 많이 제공함.
+- 상대적으로 무거움
+- HttpURLConnection 대비 다양한 API를 지원함.
+
+개발 순서 
+
+1. ClosableHttpClient 인스턴스를 생성
+2. HTTP request type에 따른 HttpGet/HttpPost 인스턴스 생성
+3. addHeader 메서드를 이용해 헤더정보 추가
+4. request를 execute해서 CloseableHttpResponse 얻기
+5. response 출력
+6. close 메서드를 통해 연결 종료
+
+~~~
+public class Httpclient1 {
+    
+    private static final String USER_AGENT = "Mozila/5.0";
+    private static final String GET_URL = "http://www.google.com";    
+ 
+    public static void sendGet() throws ClientProtocolException, IOException {
+        
+        //http client 생성
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+ 
+        //get 메서드와 URL 설정
+        HttpGet httpGet = new HttpGet(GET_URL);
+ 
+        //agent 정보 설정
+        httpGet.addHeader("User-Agent", USER_AGENT);
+        
+        //get 요청
+        CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+        
+        System.out.println("::GET Response Status::");
+        
+        //response의 status 코드 출력
+        System.out.println(httpResponse.getStatusLine().getStatusCode());
+ 
+        BufferedReader reader = new BufferedReader(new InputStreamReader(
+                httpResponse.getEntity().getContent()));
+ 
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+ 
+        while ((inputLine = reader.readLine()) != null) {
+            response.append(inputLine);
+        }
+        
+        reader.close();
+ 
+        //Print result
+        System.out.println(response.toString());
+        httpClient.close();
+    }
+}
+
+~~~
 3. OKHttp
+- Square의 오픈소스 프로젝트 
+- OKHttp는 통신을 동기화로 할지 비동기로 처리 할지 선택하여 사용할 수 있음.
+- 단 스레드를 넘나들 수 없음. (스레드간에 데이터를 공유하기 위해서는 Handler를 활용해야함)
+
+~~~
+~~~
+

@@ -1,0 +1,22 @@
+# Generic
+
+## Generic 이란
+제네릭 타입을 이용함으로써 잘못된 타입이 사용될 수 있는 문제를 컴파일 과정에서 제거할 수 있다.  
+제네릭은 클래스와 인터페이스, 메소드를 정의할 때 타입(type)을 파라미터(parameter)로 사용할 수 있도록 한다.
+
+## 장점
+1. 컴파일 시 강한 타입체크를 할 수 있다.
+    -   실행시 타입 에러 나는 것 보다 컴파일 시에 미리 타입을 강하게 체크해서 에러를 사전에 방지
+2. 타입변환 (casting)을 제거한다.
+    -   비제네릭 코드는 불필요하게 타입 변환을 하기 때문에 프로그램 성능에 악영향을 미친다.
+~~~
+List list = new ArrayList();
+list.add("hello");
+String str = (String) list.get(0); // 타입 변환이 필요
+
+List<String> list2 = new ArrayList<>();
+list2.add("hello");
+String str2 = list.get(0); // 불필요
+~~~
+
+

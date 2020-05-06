@@ -2,7 +2,7 @@
 
 ## Bean이란
 
-![bean](./bean.png)
+![bean](img/bean.png)
 
 - Spring에서 POJO(plain, old java object)를 ‘Beans’라고 부른다.  
 - Beans는 애플리케이션의 핵심을 이루는 객체이며, Spring IoC(Inversion of Control) 컨테이너에 의해 인스턴스화, 관리, 생성된다.  
@@ -38,5 +38,22 @@ Spring Bean 정의
 ~~~
 
 ## SCOPE
+
+![bean](img/scope.png)
+
 스프링은 기본적으로 모든 bean을 singleton으로 생성하여 관리한다.
+ - request, session, global session의 Scope는 일반 Spring 어플리케이션이 아닌, Spring MVC Web Application에서만 사용된다.
+
+
+1. Singleton
+    - singletondms Spring 컨테이너에서 한번 생성된다.
+    - 컨테이너가 사라질 때 baen도 제거된다.
+    - 생성된 하나의 인스턴스는 single bean cache에 저장되고, 해당 bean을 호출, 참조할 때 캐시된 객체를 반환
+![bean](img/singleton.png)
+
+2. Prototype
+    - 모든 요청에 새로운 객체를 생성하는 것을 의미한다.
+    - gc에 의해 bean이 제거된다 
+ ![bean](img/prototype.png)
+
 

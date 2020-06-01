@@ -101,7 +101,21 @@ public class Guestbook {
                 - 기본 값은 true이며, false일 경우 테이블 정의 시 필드에 NOT NULL 제약 조건이 붙습니다.
             - length
                 - 문자 길이 제약 조건으로 기본 값은 255이며, String 타입에만 적용 가능합니다.
-      
+
+- @Temporal
+    - 날짜 타입( java.util.Date , java.util.Calendar )을 매핑 할 때 사용합니다.
+    - 속성
+        - TemporalType.DATE
+            - 날짜, 데이터베이스 date 타입과 매핑
+            - ex)  2013–10–11
+        -  TemporalType.TIME
+            - 시간, 데이터베이스 time 타입과 매핑
+            - ex)  11:11:11
+        - TemporalType.TIMESTAMP
+            -  날짜와 시간, 데이터베이스 timestamp(datetime) 타입과 매핑
+            - ex)  2013–10–11 11:11:11
+         - @Column으로 필드명을 재정의한 이유는 Java에서는 Camel 표기법( regDate )을 사용하고, DB에서는 snake 표기법( reg_date )을 사용하기 때문에 관례를 따랐습니다.
+          
 
             
             

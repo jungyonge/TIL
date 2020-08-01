@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bd2e01b2-3882-4ac8-980d-511c0cbbb746" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/JAVA/Reactor/1.리액티브 스트림.md" beforeDir="false" afterPath="$PROJECT_DIR$/JAVA/Reactor/1.리액티브 스트림.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1fTWBjv89xGgIqxGxLMdHFEFIEX" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd2e01b2-3882-4ac8-980d-511c0cbbb746" name="Default Changelist" comment="" />
+      <created>1596242430811</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596242430811</updated>
+      <workItem from="1596242432018" duration="113000" />
+      <workItem from="1596242556599" duration="118000" />
+      <workItem from="1596242680828" duration="5000" />
+      <workItem from="1596243641878" duration="93000" />
+      <workItem from="1596278030855" duration="456000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="440" y="173" key="#Plugins" timestamp="1596243729397">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="440" y="173" key="#Plugins/0.0.1680.1050@0.0.1680.1050" timestamp="1596243729397" />
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596292167107">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="304" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1596292167107" />
+    <state x="2200" y="225" width="1335" height="722" key="SettingsEditor" timestamp="1596278084526">
+      <screen x="1680" y="0" width="2560" height="1440" />
+    </state>
+    <state x="341" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1596243706130" />
+    <state x="2200" y="225" width="1335" height="722" key="SettingsEditor/1680.0.2560.1440/0.0.1680.1050/4240.0.2560.1440@1680.0.2560.1440" timestamp="1596278084526" />
+    <state x="505" y="248" key="run.anything.popup" timestamp="1596243657439">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="505" y="248" key="run.anything.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1596243657439" />
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup" timestamp="1596243723506">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="505" y="233" width="670" height="676" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1596243723506" />
+  </component>
+</project>

@@ -17,8 +17,13 @@ Database Connection Pool 의 약자이다. 요청이 올때마다 Connection 객
 이와 같은 방식으로 HTTP 요청 마다 DB Driver를 로드하고 물리적인 연결에 의한 Connection 객체를 생성하는 비용이 줄어들게 된다.
 
 ##Commons 의 DBCP
-가장 많이 쓰이는 DBCP 이다.
-지금 프로젝트들 DBCP 검색하면 다 apache commons DBCP 일것 이다.
+~~가장 많이 쓰이는 DBCP 이다.  
+지금 프로젝트들 DBCP 검색하면 다 apache commons DBCP 일것 이다.~~
+
+Spring boot 에서 HikariCP 디폴트가 되었다.
+예전에 구축된 서비스라면 DBCP겠지만 최신이라면 HikariCP일 것이다.
+신규개발 할때 HikariCP 사용해야겠다
+
 
 - 버전 
 현재 기준으로 dbcp 홈페이지에 가보면 Last Published: 27 December 2017 | Version: 2.2.0 라고 되어있다.  

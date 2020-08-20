@@ -53,19 +53,37 @@ SSL Handshake의 과정을 그린 그림을 가져왔습니다. 여기 파란색
 연결을 생성하기 위해 실시하는 과정이고 아래 노란색 상자의 패킷들이 SSL Handshake입니다. 
 통신이 끝난뒤엔 4-way handshake를 한 후 종료한다.
 
-1) Client Hello
+1) Client Hello  
 Client가 Server에 SSL 연결을 시도하며 전송하는 패킷입니다. 자신이 사용 가능한 Cipher Suite 목록, Session ID, SSL Protocol Version, Random byte 등을 전달합니다.  
 Cipher Suite는 SSL Protocol version, 인증서 검정, 데이터 암호화 프로토콜, Hash 방식 등의 정보를 담고 있는 존재로 선택된 Cipher Suite의 알고리즘에 따라 데이터를 암호화하게 됩니다.   
 아래 사진을 보면 Client가 사용 가능한 Cipher Suite를 Sever에 제공하는 것을 알 수 있습니다.
 ![cl](../img/clienthello.png)
 
-
-2) Server Hello
+2) Server Hello  
 Client가 보내온 ClientHello Packet을 처리한 후, Cipher Suite 중 하나를 선택한 후 Client에게 이를 알립니다.  
 또한 자신의 SSL Protocol Version 등도 같이 보냅니다. 아래 사진을 보면 ClientHello에서 17개였던 Cipher Suite와 달리 아래에서는 Server가 선택한 한 줄만이 존재하는 것을 알 수 있습니다.
 ![sl](../img/serverhello.png)
 
+3) Certificate  
+Server가 자신의 SSL 인증서를 Client에게 전달합니다. 인증서 내부에는 Server가 발행한 공개키(+개인키는 서버가 소유)가 들어있습니다.  
+이 과정을 통해서 Client는 Server가 진짜인지, 이 Server가 보낸 SSL 인증서가 진짜인지 확인할 수 있습니다.   (인증서통신은 따로 정리 예정)
+또한 이 공개키를 가지고 Client는 데이터 암호화에 사용할 대칭키(비밀키)를 생성한 후 암호화하여 서버에게 전송할 것입니다.   
+아래를 보면 SSL 인증서가 무슨 알고리즘(RSA)으로 암호화되었고, 무슨 Hash 알고리즘(SHA256)으로 서명되었는지 확인 가능합니다.
+![cer](../img/certificate.png)
 
+4) ServerHello Done  
+Server의 공개키가 SSL 인증서 내부에 없는 경우, Server가 직접 전달합니다.   
+공개키가 SSL 인증서 내부에 있을 경우 Server Key Excahnge는 생략됩니다. 그리고 Server가 행동을 마쳤음을 전달합니다.
+
+5) Client Key Exchange  
+앞서 설명했던 SSL 인증서 내부의 공개키로 암호화한 대칭키(비밀키, 데이터를 실제로 암호화하는 키)를 Client가 생성하여 Server에게 전달합니다.   
+여기서 전달된 것이 가장 SSL Handshake의 목적이자 가장 중요한 수단인 데이터를 실제로 암호화할 대칭키(비밀키)입니다. 이제 키를 통해 Client와 Server가 교환하고자 하는 데이터를 암호화합니다.
+어떠한 암호화 알고리즘을 사용하느냐에 따라 전송 방법이 달라진다.
+예를 들어 DHE계열 알고리즘은 대칭키 생성재료를 전송하고 RSA계열은 대칭키를 생성하여 암호화 한 뒤 전송 한다.
+
+6) ChangeCipherSpec / Finished  
+Client, Server 모두가 서로에게 보내는 Packet으로 교환할 정보를 모두 교환한 뒤 준비가 다 되었음을 알리는 패킷입니다.   
+그리고 'Finished' Packet을 보내어 SSL Handshake를 종료하게 됩니다.
 
 ## SSL 인증서
 클라이언트와 서버간의 통신을 공인된 제3자(CA) 업체가 보증해주는 전자화된 문서
@@ -74,4 +92,5 @@ Client가 보내온 ClientHello Packet을 처리한 후, Cipher Suite 중 하나
 - 참조   
 https://m.blog.naver.com/alice_k106/221468341565  
 https://aws-hyoh.tistory.com/entry/HTTPS-%ED%86%B5%EC%8B%A0%EA%B3%BC%EC%A0%95-%EC%89%BD%EA%B2%8C-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0-3SSL-Handshake  
-https://gaeko-security-hack.tistory.com/123
+https://gaeko-security-hack.tistory.com/123  
+https://chp747.tistory.com/155

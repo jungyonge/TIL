@@ -70,3 +70,4 @@ Amazing
 아마도 힙 어딘가에는 AmagingDay라는 객체가 생성되어 할당 되지만 그곳을 바라보는 곳이 없는 것이다.   
 허나 두번째는 name 객채에서 AmagingDay객체가 생성된 곳을 바라보기에 AmagingDay가 출력되고,   
 세번째는 맨처음 생성한 name 객체가 바라 보는 곳은 Amaging 이기에 Amaging만 출력된다. 
+가끔 특정 함수를 쓸 때 어떤건 바로 적용되고 어떤건 안되는 차이가 immutable 차이였던것 같다

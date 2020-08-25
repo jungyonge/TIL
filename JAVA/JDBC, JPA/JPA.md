@@ -24,7 +24,28 @@ ORM을 이용하면 SQL Query가 아닌 직관적인 코드(메서드)로서 데
  3. 유지보수
     - 기존: 필드 변경 시 모든 SQL을 수정해야 한다.
     - JPA: 필드만 추가하면 된다. SQL은 JPA가 처리하기 때문에 손댈 것이 없다.
-
+    
+### save 함수 
+~~~
+    public <S extends T> S save(S entity) {
+        if (this.entityInformation.isNew(entity)) {
+            this.em.persist(entity);
+            return entity;
+        } else {
+            return this.em.merge(entity);
+        }
+    }
+~~~
+Insert와 Update 모두 save 함수로 한다. 그렇다면 Insert와 Update를 어떻게 구분할까?  
+해당 객체가   
+- Transient 상태의 객체라면 EntityManager.persist()
+- Detached 상태의 객체라면 EntityManager.merge()
+    - Transient, Detached 구분법
+        - 엔티티의 @Id 프로퍼티를 찾는다.
+        - 해당 프로퍼티가 null이면 Transient 상태로 판단
+        - null이 아니면 Detached 상태로 판
+        - 엔티티가 Persistable 인터페이스를 구현하고 있따면 isNew() 메소드를 위임한다.
+        
 ###엔티티 설명
 ~~~
 @Entity

@@ -38,7 +38,16 @@ GC가 되면서 Eden 영역에 있는 객체와 꽉 찬 Survivor 영역에 있�
 
 #### GC 알고리즘 
 - Reference Counting Algorithm
+    - Garbage의 Detection에 초점이 맞추어진 초기 Algorithm이다. 각 Object마다 Reference Count를 관리하여 Reference Count가 0이 되면 GC를 수행한다.
+    - 장점
+        - Reference Count가 0이 될 때마다 GC가 발생하기 때문에 Pause Time이 분산되어 실시간 작업에도 거의 영향을 주지 않고 즉시 메모리에서 해제된다
+    - 단점
+        - 각 Object마다 Count를 계속 변경 해야한다.
+        - 참조가 많이 되어있는 Object는 연쇄적으로 GC가 발생
+        - Linked List와 같은 순환구조에서 Memory leak 발생
+        
 - Mark-and-Sweep Alogrithm
+    - 
 - Mark-and-Compact Algorithm
 - Copying Algorithm
 - Generational Algorithm

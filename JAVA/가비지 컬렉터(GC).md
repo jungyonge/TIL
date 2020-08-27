@@ -47,8 +47,18 @@ GC가 되면서 Eden 영역에 있는 객체와 꽉 찬 Survivor 영역에 있�
         - Linked List와 같은 순환구조에서 Memory leak 발생
         
 - Mark-and-Sweep Alogrithm
-    - 
+    - Mark Phase와 Sweep Phase로 나뉘게 된다.
+    - Mark에서는 살아 남아야 할 Object를 Marking 한다
+    - Sweep 에서는 마킹이 없는 Object를 삭제한다.
+    - Sweep 후에는 Marking을 초기화 한다.
+    - GC가 수행되는 도중 Mark 작업의 정확성과 Memory Corruption을 방지하기 위해 Heap의 사용이 제한되기 때문에 Suspend 현상이 발생한다.
+    - 사용하지 않는 Object를 지웠지만 Fragmentation(조각)이 발생하여 OOME가 발생한다.
+    
 - Mark-and-Compact Algorithm
+    - 위의 알고리즘의 조각현상을 방지하기 위해 탄생했다.
+    - 위의 알고리즘과 동일 하지만 조각현상을 없애기 위해 Compact Phase가 추가 되었다.
+    - Compaction 작업 이후 살아남은 모든 Object들의 Reference를 업데이트하는 작업이 필요하기 때문에 부가적인 Overhead가 수반된다
+    
 - Copying Algorithm
 - Generational Algorithm
 

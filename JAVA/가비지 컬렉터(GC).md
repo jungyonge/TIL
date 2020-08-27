@@ -35,3 +35,24 @@ Yong, Old 영역 그리고 Young 영역은 Eden영역과 두 개의 Survivor 영
 Eden에서 survivor 둘 중 하나의 영역으로 할당 되고, 할당된 Survivor 영역이 차면,   
 GC가 되면서 Eden 영역에 있는 객체와 꽉 찬 Survivor 영역에 있는 객체가 비어 있는 Survivor 영역으로 이동합니다.   
 그러다가 더 큰 객체가 생성되거나, 더 이상 Young 영역에 공간이 남지 않으면 객체들은 Old 영역으로 이동하게 됩니다.
+
+#### GC 알고리즘 
+- Reference Counting Algorithm
+- Mark-and-Sweep Alogrithm
+- Mark-and-Compact Algorithm
+- Copying Algorithm
+- Generational Algorithm
+
+
+#### GC 종류
+
+GC는 크게 두 가지 타입으로 나뉩니다. 마이너 GC와 메이저 GC의 두가지 GC가 발생할 수 있습니다.
+- 마이너 GC: Young 영역에서 발생하는 GC
+- 메이저 GC: Old 영역이나 Perm 영역에서 발생하는 GC
+
+이 두가지 GC가 어떻게 상호 작용하느냐에 따라서 GC 방식에 차이가 나며, 성능에도 영향을 줍니다.   
+GC가 발생하거나 객체가 각 영역에서 다른 영역으로 이동할 때 애플리케이션의 병목이 발생하면서 성능에 영향을 주게 됩니다.   
+그래서 핫 스팟(Hot Spot) JVM에서는 스레드 로컬 할당 버퍼(TLABs: Thread-Local Allocation Buffers)라는 것을 사용합니다.   
+이를 통해 각 스레드별 메모리 버퍼를 사용하면 다른 스레드에 영향을 주지 않는 메모리 할당 작업이 가능합니다.
+
+

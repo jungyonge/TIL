@@ -60,18 +60,63 @@ GC가 되면서 Eden 영역에 있는 객체와 꽉 찬 Survivor 영역에 있�
     - Compaction 작업 이후 살아남은 모든 Object들의 Reference를 업데이트하는 작업이 필요하기 때문에 부가적인 Overhead가 수반된다
     
 - Copying Algorithm
+    - 해당 알고리즘도 조각현상을 방지하기위해 제시된 다른 방법이다.
+    - 현대의 GC가 차용하고 있는데 Generational이 해당 알고리즘의 발전형이다.
+    - Heap을 Active 영역과 InActive 영역으로 나누어 Active 영역에만 Object를 할당할 수 있게 하고 Active 영역이 꽉 차게 되면 GC를 수행한다는 것이다. 
+    - 살아남은 Live Object를 Inactive영역에 Copy 한다.
+    - Copy 하는 동안 프로그램이 Suspend 상태가 되기 때문에 Stop-the-Coyping이라고도 부른다.
+    - Fragmentation 방지에는 효과적이지만 전체 Heap의 절반 정도밖에 사용하지 못한다는 공간 활용의 비효율성,  
+      Suspend 현상, Copy에 대한 Overhead가 존재한다는 단점이 있다.
+      
 - Generational Algorithm
+    - 오늘날 사용하는 GC 알고리즘
+    - 이 알고리즘은 두가지 가설 하에 만들어졌다(가정 또는 전제조건이 맞는 단어같다)
+        - 대부분의 객체는 금방 접근 불가능 상태(unreachable)가 된다.
+        - 오래된 객체에서 젊은 객체로의 참조는 아주 적게 존재한다. 
+        
+    - 이러한 가설을 'weak generational hypothesis'라 한다.   
+      이 가설의 장점을 최대한 살리기 위해서 HotSpot VM에서는 크게 2개로 물리적 공간을 나누었다.   
+      둘로 나눈 공간이 Young 영역과 Old 영역이다.
+      
+    - Young 영역의 구성
+        - GC를 이해하기 위해서 객체가 제일 먼저 생성되는 Young 영역부터 알아보자. Young 영역은 3개의 영역으로 나뉜다.
+            - Eden 영역
+          - Survivor 영역(2개)
+      - Survivor 영역이 2개이기 때문에 총 3개의 영역으로 나뉘는 것이다. 각 영역의 처리 절차를 순서에 따라서 기술하면 다음과 같다.
+          - 새로 생성한 대부분의 객체는 Eden 영역에 위치한다.
+          - Eden 영역에서 GC가 한 번 발생한 후 살아남은 객체는 Survivor 영역 중 하나로 이동된다.
+          - Eden 영역에서 GC가 발생하면 이미 살아남은 객체가 존재하는 Survivor 영역으로 객체가 계속 쌓인다.
+          - 하나의 Survivor 영역이 가득 차게 되면 그 중에서 살아남은 객체를 다른 Survivor 영역으로 이동한다. 그리고 가득 찬 Survivor 영역은 아무 데이터도 없는 상태로 된다.
+          - 이 과정을 반복하다가 계속해서 살아남아 있는 객체는 Old 영역으로 이동하게 된다.
+      - Young 영역에서 발생하는 GC를 Minor GC라 칭한다.
 
-
-#### GC 종류
-
-GC는 크게 두 가지 타입으로 나뉩니다. 마이너 GC와 메이저 GC의 두가지 GC가 발생할 수 있습니다.
-- 마이너 GC: Young 영역에서 발생하는 GC
-- 메이저 GC: Old 영역이나 Perm 영역에서 발생하는 GC
-
-이 두가지 GC가 어떻게 상호 작용하느냐에 따라서 GC 방식에 차이가 나며, 성능에도 영향을 줍니다.   
-GC가 발생하거나 객체가 각 영역에서 다른 영역으로 이동할 때 애플리케이션의 병목이 발생하면서 성능에 영향을 주게 됩니다.   
-그래서 핫 스팟(Hot Spot) JVM에서는 스레드 로컬 할당 버퍼(TLABs: Thread-Local Allocation Buffers)라는 것을 사용합니다.   
-이를 통해 각 스레드별 메모리 버퍼를 사용하면 다른 스레드에 영향을 주지 않는 메모리 할당 작업이 가능합니다.
-
-
+    - Old 영역에 대한 GC
+        - Old 영역에서 발생하는 GC를 Major GC라 칭한다.
+        - Old 영역은 기본적으로 데이터가 가득 차면 GC를 실행한다. GC 방식에 따라서 처리 절차가 달라지므로,   
+            어떤 GC 방식이 있는지 살펴보면 이해가 쉬울 것이다. GC 방식은 JDK 7을 기준으로 5가지 방식이 있다.
+            - Serial GC
+                - 운영서버에서 절대 사용 하면 안된다.
+                - CPU코어가 하나만 있을 때 사용 하기 위한 방식, 어플리케이션 성능이 매우 떨어진다.
+                - Young에서는 Generational을 사용하고 Old 영역의 GC는 mark-sweep-compact이라는 알고리즘을 사용한다.
+                - 적은 메모리와 CPU 코어 개수가 적을 때 적합한 방식이다.
+                
+            - Parallel GC
+                - Serial GC와 사용하는 알고리즘은 같다.
+                - Parallel GC는 GC를 처리하는 쓰레드가 여러 개이다
+                - 그래서 Serial GC 보다 빠르다.
+                - JDK6, 7 Default
+ 
+            - Parallel Old GC(Parallel Compacting GC)
+                - JDK 5 update 6부터 제공한 GC 방식
+                - Parallel GC와 비교하여 Old 영역의 GC 알고리즘만 다르다. 이 방식은 Mark-Summary-Compaction 단계를 거친다.
+                
+            - Concurrent Mark & Sweep GC(이하 CMS)
+                - CMS GC는 stop-the-world 시간이 짧다는 장점에 반해 다음과 같은 단점이 존재한다.
+                    - 다른 GC 방식보다 메모리와 CPU를 더 많이 사용한다.
+                    - Compaction 단계가 기본적으로 제공되지 않는다.
+                    
+            - G1(Garbage First) GC
+                - G1 GC는 바둑판의 각 영역에 객체를 할당하고 GC를 실행한다.
+                - 지금까지 설명한 Young의 세가지 영역에서 데이터가 Old 영역으로 이동하는 단계가 사라진 GC 방식이라고 이해하면 된다. 
+                - JDK 9부터 Default 됨
+               

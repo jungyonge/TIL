@@ -118,7 +118,7 @@ GC가 되면서 Eden 영역에 있는 객체와 꽉 찬 Survivor 영역에 있�
             - G1(Garbage First) GC
                 - G1 GC는 바둑판의 각 영역에 객체를 할당하고 GC를 실행한다.
                 - 지금까지 설명한 Young의 세가지 영역에서 데이터가 Old 영역으로 이동하는 단계가 사라진 GC 방식이라고 이해하면 된다. 
-                - JDK 9부터 Default 됨
+                - JDK 9부터 Default 됨   
 - 참조
     - https://d2.naver.com/helloworld/1329
     - https://medium.com/@joongwon/jvm-garbage-collection-algorithms-3869b7b0aa6f

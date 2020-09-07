@@ -61,7 +61,7 @@ SELECT하는 경우에도 데이터 블록 수와 DB_FILE_MULTIBLOCK_READ_COUNT 
 
 ## INDEX 종류
 1. B-TREE  
-![address](./BTREE.jpg)
+![address](img/BTREE.jpg)
 
 ##클러스터, 논클러스터 인덱스
 

@@ -77,3 +77,99 @@ Stream<String> parallelStream = list.parallelStream();
   난수 스트림을 생성할 수도 있다.  
   DoubleStream doubles = new Random().doubles(3); // 난수 3개 생성
 
+## Intermediate Operations
+
+값을 원하는 형태로 처리하기 위한 연산자이다. 각각의 중간 연산자들은 lazy하게 실행되고, 결과로 stream을 반환한다.   
+그렇기 때문에 중간 연산자는 method chaining 형태로 연결하여 처리할 수 있다.   
+연산의 결과가 stream으로 반환되기 때문에 stream-producing 연산자라고 부르기도 한다
+
+- Lazy한 처리  
+    - 결과가 필요하기 전까지 실행되지 않음을 의미한다. 연산의 시점을 최대한 늦춘다는 말이다.
+ 
+- filter()
+
+원하는 요소만 추출하기 위한 메소드이다. 인자로는 Predicate를 받는데, boolean값을 반환하는 람다식을 넣으면 된다.
+~~~  
+  Stream<T> filter(Predicate<? super T> predicate);
+~~~
+  e.g. 문자열 리스트에서 특정한 문자가 포함된 문자열 뽑아내기
+~~~  
+  List<String> names = Arrays.asList("Hello", "World", "Test", "array");
+  List<String> filteredNames = names.stream()
+          .filter(it -> it.contains("e"))
+          .collect(Collectors.toList());
+~~~  
+e.g. 시험 점수가 80점 이상인 학생만 뽑아내기
+~~~  
+  Arrays.asList(19, 86, 35, 78, 12, 45, 89, 98, 100)
+          .stream()
+          .filter(it -> it >= 80)
+          .forEach(System.out::println);
+~~~
+
+- map()  
+
+스트림 내 요소를 가공한다. mapper를 간단히 설명하자면, T를 인자로 받아 변환한 값 R을 반환하는 함수이다. 이는 람다식으로 간단히 표현할 수 있다.
+~~~
+<R> Stream<R> map(Function<? super T, ? extends R> mapper);
+~~~
+e.g. 정사각형 한 변의 길이를 곱하여 넓이로 가공하기
+~~~
+Arrays.asList(3, 8, 9, 10, 20, 11, 22)
+        .stream()
+        .map(it -> it * it)
+        .forEach(System.out::println);
+~~~ 
+
+- flatMap
+
+중첩 구조를 한 단계 제거하고 단일 컬렉션으로 만들어 주는 역할을 한다. 이러한 작업을 flattening이라고 한다.  
+map과 가장 큰 차이는 함수의 반환 값이 stream 형태라는 것이다. 이는 map만으로 처리하면 복잡해지는 코드를 간결하게 만들어준다.
+~~~
+  <R> Stream<R> flatMap(Function<? super T, ? extends Stream<? extends R>> mapper);
+~~~
+  e.g. 2차원 배열과 같이 중첩된 형태의 값을 처리할 때 map을 이용하면 2중 for문의 형태를 사용해야 한다. 반면에 flatMap을 이용하면 배열의 각 행에 있는 요소를 stream으로 만들어 처리할 수 있다.
+~~~  
+  String arr[][] = {
+      {"minus one", "zero", "one"}, 
+      {"two", "Three"}, 
+      {"Four", "Five", "Six"}, 
+      {"eight", "ten"}
+  };
+  
+  Stream.of(arr)
+          .flatMap(Stream::of)
+          .forEach(System.out::println);
+  
+  int arr[][] = {{1, 2, 3}, {4, 8}, {9, 10, 20}, {11, 22}};
+  Stream.of(arr)
+          .flatMapToInt(IntStream::of)
+          .forEach(System.out::println);
+~~~
+
+- sorted()
+
+stream 요소를 정렬한다. 어떠한 인자도 넣지 않는다면 오름차순으로 정렬되고, Comparator를 인자로 넣으면 Comparator의 기준에 따라 정렬된다.
+~~~
+ Stream<T> sorted();
+ Stream<T> sorted(Comparator<? super T> comparator);
+
+ e.g. 오름차순으로 정렬하기
+ 
+ List<String> names = Arrays.asList("Hello", "World", "stream", "API");
+ names.stream()
+         .sorted()
+         .forEach(System.out::println);
+
+ e.g. 내림차순으로 정렬하기
+ 
+ List<String> names = Arrays.asList("Hello", "World", "stream", "API")
+         .stream()
+         .sorted(Comparator.reverseOrder())
+         .forEach(System.out::println);
+~~~
+
+- Comparable VS Comparator
+  - Comparable은 객체의 기본 정렬기준이 되는 메서드를 정의하는 인터페이스이다.
+  - Comparator는 새로운 정렬 기준을 적용하고 싶은 경우 사용하는 인터페이스이다.
+  

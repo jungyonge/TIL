@@ -14,6 +14,7 @@ SSLHandshakeException이 발생하는 이유는 연결을 시도하는 사이트
 
 1. InstarCert.java 다운로드
     - wget https://freestrokes.tistory.com/attachment/cfile24.uf@99039A3359A277BF30627D.java
+    - curl -O https://gist.githubusercontent.com/lesstif/cd26f57b7cfd2cd55241b20e05b5cd93/raw/InstallCert.java
 2. 해당 파일 이동
     - sudo mv [경로]/InstallCert.java ${JAVA_HOME}/jre/lib/security/
 3. 해당 파일 컴파일

@@ -28,3 +28,22 @@ IoC Inversion of Control의 약자
         - Constructor Injection : 컴퍼넌트의 dependency 가 constructor의 argument를 통해 제공되는 방식
         - Setter Injection : 컴퍼넌트의 dependency 가 JavaBean-style setter를 통해 제공되는 방식
         - Method(Interface) Injection : 컴퍼넌트의 dependency 가 일반 메소드를 통해서 제공되는 방식 (거의 사용하지 않음)
+4. DL(Dependency Lookup) 이란  
+    DL은 의존성 검색이다. 이는 Bean에 접근하기 위해 컨테이너가 제공하는 API를 이용하여 Bean을 Lookup하는 것이다.  
+    아래와 같이 Bean에 대한 정보가 있는 xml파일이 있다고 생각해보자.  
+   ~~~
+    <beans>
+        <bean id="myObject" class="com.example.MyObject"/>
+    </beans>
+   ~~~
+    java에서는 해당 xml의 Bean 정보들을 보고 어떤 클래스를 사용할지 검색하여 주입하게 된다.  
+    아래 자바코드를 살펴보자.
+    ~~~
+    String myConfigLocation = "classpath:myApplicationCTX.xml";
+    AbstractApplicationContext ctx = new GenericXmlApplicationContext(myConfigLocation);
+    MyObject myObject = ctx.getBean("myObject", MyObject.class);
+    ~~~
+    그 결과 위와 같은 코드를 통해 적절한 MyObject클래스를 가져올 수 있는 것이다.
+ 
+- 참조
+    - https://happy-playboy.tistory.com/entry/%EB%B0%B1%EC%88%98%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-IoC%EC%99%80-DI%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C

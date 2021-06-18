@@ -35,6 +35,7 @@ Consumer는 소비자로써 메세지를 소비하는 주체이다. 역시 Produ
 broker는 카프카의 서버를 칭한다. broker.id=1..n으로 함으로써 동일한 노드내에서 여러개의 broker서버를 띄울 수도 있다.   
 zookeeper는 이러한 분산 메세지 큐의 정보를 관리해 주는 역할을 한다.   
 kafka를 띄우기 위해서는 zookeeper가 반드시 실행되어야 한다.
+왜냐하면 zookeeper에서 오프셋 관리한다.
 
 ###4.consumer group
 카프카에서는 Consumer 그룹이라는 개념이 나온다. 말 그대로 consumer들의 묶음이고, 기본적인 룰이 하나가 존재한다.   

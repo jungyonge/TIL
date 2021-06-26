@@ -47,3 +47,4 @@ IoC Inversion of Control의 약자
  
 - 참조
     - https://happy-playboy.tistory.com/entry/%EB%B0%B1%EC%88%98%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81-IoC%EC%99%80-DI%EC%97%90-%EB%8C%80%ED%95%B4%EC%84%9C
+    - https://yaboong.github.io/spring/2019/08/29/why-field-injection-is-bad/

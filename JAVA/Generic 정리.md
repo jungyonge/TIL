@@ -80,3 +80,7 @@ Product<Tv,String> product = new Product<>();
    public <T extends 상위타입> 리턴타입 메소드(매개변수, ...) { ... } 
 ~~~
 인터페이스도 상속가능하나 implements말고 extends를 사용한다.
+
+
+- 참조
+    - https://yaboong.github.io/java/2019/01/19/java-generics-1/

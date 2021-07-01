@@ -36,4 +36,4 @@ public class Post extends DateAudit {
 
 - 참고
     - https://blog.advenoh.pe.kr/database/JPA-N1-%EB%AC%B8%EC%A0%9C-%ED%95%B4%EA%B2%B0%EB%B0%A9%EB%B2%95/
-    - https://jisooo.tistory.com/entry/JPA-N1-%EC%A1%B0%ED%9A%8C-%EB%AC%B8%EC%A0%9C%EC%99%80-%ED%95%B4%EA%B2%B0%EB%B0%A9%EB%B2%95
+    - https://jisooo.tistory.com/entry/JPA-N1-%EC%A1%B0%ED%9A%8C-%EB%AC%B8%EC%A0%9C%EC%99%80-%ED%95%B4%EA%B2%B0%EB%B0%A9%EB%B2%95 

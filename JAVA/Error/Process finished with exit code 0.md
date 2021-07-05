@@ -33,4 +33,4 @@ Maven 경로가 잘못 되어있는 경우가 종종 있는듯
     위에도 다 안된다면 Maven 프로젝트 리로드
      사진 맨 왼쪽 버튼 클릭
 
-- 만약 Maven에 spring-boot-starter-web와 spring-boot-starter-tomcat이 둘다 있다면 tomcat 삭제
+- 만약 Maven에 spring-boot-starter-web와 spring-boot-starter-tomcat이 둘다 있다면 tomcat 삭제  

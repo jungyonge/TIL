@@ -51,6 +51,50 @@
           }
   ~~~
   hm안의 Key 값으로 포문 돌림
+  
+## 스택
+-  Stack<Integer> stack = new Stack<>(); //int형 스택 선언
+-  Stack<String> stack = new Stack<>(); //char형 스택 선언
+-  stack.push(1);     // stack에 값 1 추가
+-  stack.push(2);     // stack에 값 2 추가
+-  stack.pop();       // stack에 값 제거
+-  stack.clear();     // stack의 전체 값 제거 (초기화)
+-  stack.peek();     // stack의 가장 상단의 값 출력
+
+## 큐
+
+- Queue<Integer> queue = new LinkedList<>(); //int형 queue 선언
+- queue.offer(1);     // queue에 값 1 추가
+- queue.offer(2);     // queue에 값 2 추가
+- queue.offer(3);     // queue에 값 3 추가
+- queue.poll();       // queue에 첫번째 값을 반환하고 제거 비어있다면 null
+- queue.remove();     // queue에 첫번째 값 제거
+- queue.clear();      // queue 초기화
+- queue.peek();       // queue의 첫번째 값 참조
+
+## 우선순위
+//int형 priorityQueue 선언 (우선순위가 낮은 숫자 순)
+- PriorityQueue<Integer> priorityQueue = new PriorityQueue<>();
+
+//int형 priorityQueue 선언 (우선순위가 높은 숫자 순)
+- PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
+
+//String형 priorityQueue 선언 (우선순위가 낮은 숫자 순)
+- PriorityQueue<String> priorityQueue = new PriorityQueue<>(); 
+
+//String형 priorityQueue 선언 (우선순위가 높은 숫자 순)
+- PriorityQueue<String> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
+
+- priorityQueue.add(1);     // priorityQueue 값 1 추가
+- priorityQueue.add(2);     // priorityQueue 값 2 추가
+- priorityQueue.offer(3);   // priorityQueue 값 3 추가
+- priorityQueue.poll();       // priorityQueue에 첫번째 값을 반환하고 제거 비어있다면 null
+- priorityQueue.remove();     // priorityQueue에 첫번째 값 제거
+- priorityQueue.clear();      // priorityQueue에 초기화
+- priorityQueue.peek();       // priorityQueue에 첫번째 값 참조 = 1
+
+
+
  
 - 
                                 

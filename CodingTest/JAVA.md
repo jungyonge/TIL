@@ -93,9 +93,5 @@
 - priorityQueue.clear();      // priorityQueue에 초기화
 - priorityQueue.peek();       // priorityQueue에 첫번째 값 참조 = 1
 
-
-
- 
-- 
                                 
                                 

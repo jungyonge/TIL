@@ -9,6 +9,13 @@
 - 배열 오름차순 : Arrays.sort(arr);
 - 배열 내림차순 : Arrays.sort(arr, Collections.reverseOrder());
 
+- Arrays.copyOf(원본배열, 복사할 길이);
+- Arrays.copyOfRange(원본 배열, 복사할 시작인덱스, 복사할 끝인덱스) 인덱스는 0부터 시작하는것 기준
+
+
+
+출처: https://taeil00.tistory.com/193 [EO's Blog]
+
 - 배열의 길이 : arr.length;
 - 2차원 배열의 길이 : arr[0].length; 0번째 배열의 길이
 
@@ -92,6 +99,19 @@
 - priorityQueue.remove();     // priorityQueue에 첫번째 값 제거
 - priorityQueue.clear();      // priorityQueue에 초기화
 - priorityQueue.peek();       // priorityQueue에 첫번째 값 참조 = 1
+
+## ArrayList
+
+선언 : ArrayList<Integer> arrayList = new ArrayList<>();
+
+Array -> ArrayList
+ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(array));
+
+ArrayList -> Array
+String[] array = arrayList.toArray(new String[arrayList.size()]);
+
+- https://junjangsee.github.io/2019/07/25/java/arraylist-Method/
+
 
                                 
                                 

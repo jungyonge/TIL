@@ -106,6 +106,8 @@
 
 Array -> ArrayList
 ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(array));
+ArrayList<Integer> integerArray = (ArrayList<Integer>) Arrays.stream(citations).boxed().collect(Collectors.toList());
+
 
 ArrayList -> Array
 String[] array = arrayList.toArray(new String[arrayList.size()]);

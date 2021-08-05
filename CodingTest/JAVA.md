@@ -103,6 +103,8 @@
 ## ArrayList
 
 선언 : ArrayList<Integer> arrayList = new ArrayList<>();
+정렬         Collections.sort(integerArray);
+
 
 Array -> ArrayList
 ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(array));

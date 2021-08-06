@@ -113,6 +113,8 @@ ArrayList<Integer> integerArray = (ArrayList<Integer>) Arrays.stream(citations).
 
 ArrayList -> Array
 String[] array = arrayList.toArray(new String[arrayList.size()]);
+ int[] answer = arr.stream().mapToInt(i -> i).toArray();
+
 
 - https://junjangsee.github.io/2019/07/25/java/arraylist-Method/
 

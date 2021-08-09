@@ -22,7 +22,7 @@
             System.out.println(a);
             for(int i=0; i<5; i++){
             }
-    //		System.out.println(i); 컴파일 에러
+    //		System.out.println(i); 컴파일 에러  
         }
     }    
     ~~~

@@ -103,6 +103,8 @@
 ## ArrayList
 
 선언 : ArrayList<Integer> arrayList = new ArrayList<>();
+정렬         Collections.sort(integerArray);
+
 
 Array -> ArrayList
 ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(array));
@@ -111,6 +113,8 @@ ArrayList<Integer> integerArray = (ArrayList<Integer>) Arrays.stream(citations).
 
 ArrayList -> Array
 String[] array = arrayList.toArray(new String[arrayList.size()]);
+ int[] answer = arr.stream().mapToInt(i -> i).toArray();
+
 
 - https://junjangsee.github.io/2019/07/25/java/arraylist-Method/
 

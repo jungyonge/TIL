@@ -115,9 +115,18 @@ ArrayList -> Array
 String[] array = arrayList.toArray(new String[arrayList.size()]);
  int[] answer = arr.stream().mapToInt(i -> i).toArray();
 
-
+  
 - https://junjangsee.github.io/2019/07/25/java/arraylist-Method/
 
+## 달력관련
+ String answer = "";
+    Calendar cal = Calendar.getInstance();
+    cal.set(2016, a-1, b);
+    Date date = cal.getTime();
+    SimpleDateFormat sdf = new SimpleDateFormat("E", Locale.ENGLISH);
+          
+    answer = sdf.format(date).toUpperCase();
+    return answer;
 
                                 
                                 

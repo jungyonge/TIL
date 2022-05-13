@@ -104,10 +104,12 @@ GC가 되면서 Eden 영역에 있는 객체와 꽉 찬 Survivor 영역에 있�
                 - Serial GC와 사용하는 알고리즘은 같다.
                 - Parallel GC는 GC를 처리하는 쓰레드가 여러 개이다
                 - 그래서 Serial GC 보다 빠르다.
+                - Mark Sweep Compaction 알고리즘 사용 
                 - JDK6, 7 Default
  
             - Parallel Old GC(Parallel Compacting GC)
                 - JDK 5 update 6부터 제공한 GC 방식
+                - Major GC도 멀티스레드로 작동
                 - Parallel GC와 비교하여 Old 영역의 GC 알고리즘만 다르다. 이 방식은 Mark-Summary-Compaction 단계를 거친다.
                 
             - Concurrent Mark & Sweep GC(이하 CMS)

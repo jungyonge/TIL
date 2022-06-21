@@ -51,7 +51,7 @@
     * 순서 무시
     * 해시 함수에 의존
 
-* HashTable vs HashMap
+* HashTable vs HashMap vs ConcurrentHashMap
     * Key-Value 구조 및 Key에 대한 Hash로 Value 관리하는 것은 동일
     * HashTable
         * 동기
@@ -60,6 +60,16 @@
     * HashMap
         * 비동기 (멀티 스레드 환경에서 주의)
         * Key-Value 값으로 null 허용
+        * get, put, remove에 synchronized가 있다.
+        * 느리다
+    * ConcurrentHashMap
+      * key와 value에 null을 허용하지 않는다.
+      * 동기화를 보장한다.
+      * ConcurrentHashMap은 thread-safe하기 때문에, 멀티 쓰레드 환경에서 사용할 수 있다.  
+      * 이 구현체는 HashMap의 동기화 문제를 보완하기 위해 나타났다.   
+      * 동기화 처리를 할 때, 어떤 Entry를 조작하는 경우에 해당 Entry에 대해서만 락을 건다.   
+      * 그래서 HashTable보다 데이터를 다루는 속도가 빠르다.   
+      * 즉, Entry 아이템별로 락을 걸어 멀티 쓰레드 환경에서의 성능을 향상시킨다.
 
 * HashTable 성능
 
@@ -68,4 +78,6 @@
   |탐색|O(1)|O(N)|
   |삽입|O(1)|O(N)|
   |삭제|O(1)|O(N)|
+
+* 
 

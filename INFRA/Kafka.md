@@ -61,3 +61,4 @@ producer가 메세지를 쓰고, consumer가 메세지를 읽는 건 오로지 l
 
 참조
 - https://steady-coding.tistory.com/580
+- https://minholee93.tistory.com/entry/RabbitMQ-Message-System%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0

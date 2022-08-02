@@ -34,3 +34,20 @@ Aspect-Oriented Programming의 약자이다.
 - 프록시 (Proxy)  
 타겟을 감싸서 타겟의 요청을 대신 받아주는 랩핑(Wrapping) 오브젝트입니다.  
 호출자 (클라이언트)에서 타겟을 호출하게 되면 타겟이 아닌 타겟을 감싸고 있는 프록시가 호출되어, 타겟 메소드 실행전에 선처리, 타겟 메소드 실행 후, 후처리를 실행시키도록 구성되어있습니다.  
+
+
+### jdk dynamic proxy
+JDK 에서 제공하는 Dynamic Proxy는 1.3 버젼부터 생긴 기능이며,  
+Interface를 기반으로 Proxy를 생성해주는 방식입니다.
+그렇기 때문에 Interface를 강제화 한다는 단점이 있다는...  
+Dynamic Proxy는 Invocation Handler를 상속받아서 실체를 구현하게 되는데,  
+이 과정에서 특정 Object에 대해 Reflection을 사용하기 때문에 성능이 조금 떨어지는 크리티컬한 단점이 있습니다.  
+
+### CGlib Proxy
+CGlib은 기본적으로 Byte 코드를 조작해서, 바이너리가 만들어지기 때문에 JDK Dynamic Proxy보다 성능적으로 더 우세합니다  
+다만, final 객체 혹은 private 접근자로 된 메서드는 상속(Override)가 지원되지 않기 때문에
+제약적인 Proxy 구현이 가능하다는 것을 알 수 있습니다  
+
+## 참조
+- https://huisam.tistory.com/entry/springAOP
+- https://atoz-develop.tistory.com/entry/Spring-%EC%8A%A4%ED%94%84%EB%A7%81-AOP-%EA%B0%9C%EB%85%90-%EC%9D%B4%ED%95%B4-%EB%B0%8F-%EC%A0%81%EC%9A%A9-%EB%B0%A9%EB%B2%95

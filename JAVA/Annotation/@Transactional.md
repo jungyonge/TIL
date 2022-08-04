@@ -25,11 +25,12 @@
 
 - MySQL일 경우 Inno일때만 트랜잭션이 작동함
 - proxy를 사용할 때 반드시 public 메소드에 사용해야 한다
--클래스들이 인터페이스를 사용하는지 확인해야함
- @Transactional 어노테이션 같은경우 Spring AOP를 이용함 , AOP는 기본적으로 Dynamic Proxy를 이용함  
- Dynamic Proxy는 인터페이스 기반으로 동작하기 때문에 인터페이스가 없을경우 트랜잭션이 동작하지 않는다.  
--인터페이스없이 트랜잭션을 작동시키려면 CGLib Proxy를 사용하면됨(proxy-target-class="true")  
+- 클래스들이 인터페이스를 사용하는지 확인해야함
+  Spring Framework 의 경우 JDK Dynamic Proxy(인터페이스 기반) 로 Proxy 를 생성하고
+  Spring Boot 의 경우 CGLib(클래스 기반) 로 Proxy 를 생성한다.
+- 인터페이스없이 트랜잭션을 작동시키려면 CGLib Proxy를 사용하면됨(proxy-target-class="true")  
 ex) <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+- https://velog.io/@ette9844/Spring-Transactional-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98-%EC%83%81%EC%86%8D
 
 ##참조
 - https://cchoimin.tistory.com/entry/Transactional-%EC%84%B8%ED%8C%85-%EB%B0%8F-%EC%82%AC%EC%9A%A9%EB%B2%95

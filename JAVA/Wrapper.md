@@ -50,3 +50,8 @@ public class Wrapper_Ex {
      collection에서 원시타입을 허용하면
      예를들어 intlist,doublelist가 각각 다 필요하고
      래퍼,리퍼런스로 받으면 오브젝트 상속한 형태는 다됨으로 1개만 있으면 돼서 인듯 하다.
+      사용하는 이유
+5. 기본 데이터 타입을 Object로 변환할 수 있다.
+6. java.util 패키지의 클래스는 객체만 처리하므로 Wrapper class는 이 경우에도 도움이 된다.
+7. ArrayList 등과 같은 Collection Framework의 데이터 구조는 기본 타입이 아닌 객체만 저장하게 되고, Wrapper class를 사용하여 자동박싱/언박싱이 일어난다.
+8. 멀티스레딩에서 동기화를 지원하려면 객체가 필요하다.

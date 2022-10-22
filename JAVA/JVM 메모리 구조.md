@@ -47,3 +47,4 @@ GC는 Eden과 ss1을 클리어 (살아있는 녀석은 ss2로 피신),
 - 참조 
     - https://javaslave.tistory.com/23
     - https://steady-coding.tistory.com/m/305K
+    - https://coding-factory.tistory.com/828
